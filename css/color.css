@@ -1,0 +1,48 @@
+/*
+*
+* FlatApp Color CSS
+* You can easily change template   
+* primary color using this color css file.
+* Just replace with your own color HEX code and RGBA color Where nesseary.
+*
+*/
+
+/* Solid HEX Code */
+.screen-wrap .swiper-pagination-bullets .swiper-pagination-bullet-active,
+.review-carousel .owl-item.center,
+.icon-wrap span,
+.scroll-to-top,
+.footer-social li a:hover,
+.owl-nav-2 .owl-nav div,
+.bg-red,
+.b-btn{
+    background-color: #FD7E57;
+}
+.feature-list .list-item i,
+.footer-social li a,
+.pricing-list li:before,
+.video-box .video-icon a,
+.list-check li:before,
+.text-red{
+    color: #FD7E57;
+}
+.b-btn:hover{
+    background-color: #ff9c7f;
+}
+.video-box .video-icon{
+    border-right: 2px solid #FD7E57;
+}
+.screen-wrap .swiper-pagination-bullets .swiper-pagination-bullet-active,
+.icon-wrap,
+.footer-social li a,
+.pricing-box.mid,
+.video-box .video-icon a{
+     border: 1px solid #FD7E57;
+}
+
+
+
+
+
+
+
