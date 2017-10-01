@@ -130,6 +130,7 @@
         }else{
             var section_id = $(this).closest("footer").attr('id');
         }
+        var originaltext=$('#' + section_id).find('form').find('button').text();
         $('#' + section_id).find('form').find('button').text('loading...');
         $('#' + section_id).find('form input').each(
             function (index) {
@@ -141,7 +142,7 @@
                         values.push($(this).val());
                         fs_process = true;
                     } else {
-                        $('#' + section_id).find('form').find('button').text('Send');
+                        $('#' + section_id).find('form').find('button').text(originaltext);
                         $(this).addClass('fs-input-error');
                         fs_process = false;
                     }
@@ -172,7 +173,7 @@
                        var fs_form_output = '<div id="success-msg" class="padding-15 mt-15 bdrs-3" style="border: 1px solid green; color: green;">'+data.text+'</div>';
                          $('#' + section_id).find('form').find('button').text('Success');
                     }else if (data.type == "fs_error") {
-                        $('#' + section_id).find('form').find('button').text('Send');
+                        $('#' + section_id).find('form').find('button').text(originaltext);
                         $('#success-msg').remove();
                         $('#error-msg').remove(); 
                         var fs_form_output = '<div id="error-msg" class="padding-15 mt-15 bdrs-3" style="border: 1px solid red; color: red;">'+data.text+'</div>';
@@ -197,7 +198,7 @@
                     $('#error-msg').fadeOut();
                     $('#error-msg').remove();
                     $(this).submit();
-                    $('#' + section_id).find('form').find('button').text('Send');
+                    $('#' + section_id).find('form').find('button').text(originaltext);
                  },5000);
                 localStorage.removeItem('fs_section');
             }, 'json');

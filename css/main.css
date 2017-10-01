@@ -40,13 +40,13 @@
 	background-color: #fff;
 }
 .transparent-header ul.nav > li > a{
-	color: #ddd;
+	color: #333;
 	opacity: 0.6;
 }
 .transparent-header ul.nav > li > a:focus,
 .transparent-header ul.nav > li > a:hover,
 .transparent-header ul.nav > li.active > a{
-	color: #fff;
+	color: #000;
 	opacity: 1;
 }
 .fixed-top.transparent-header ul.nav > li > a{
@@ -96,14 +96,14 @@ ul.nav{}
 ul.nav > li{}
 ul.nav > li > a{
 	color: #ddd;
-    font-family: 'Open Sans', sans-serif;
-    text-transform: uppercase;
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0 15px;
-    letter-spacing: 1px;
-    font-size: 12px;
-    font-weight: 400;
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0 15px;
+	letter-spacing: 1px;
+	font-size: 12px;
+	font-weight: 400;
 }
 ul.nav > li > a:focus,
 ul.nav > li > a:hover,
