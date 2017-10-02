@@ -115,10 +115,127 @@
         offset: 0
     });
     wow.init();
+
+
              
 /*=========================================================================
     Subscribe Form
 =========================================================================*/
+
+$( "#dialog" ).dialog({ autoOpen: false });
+$('.comp-form').find("fieldset").hide();
+    $('.comp-btn').on('click', function (event) {
+        event.preventDefault();
+        var name_attr = [];
+        var values = [];
+        var fs_process = "";
+        var myform=$(this).closest("form");
+        var myfieldset=myform.find("fieldset");
+        if($(myfieldset).is(":hidden")){
+            myfieldset.show(500);
+            myform.find('button').text("Go!");
+            return;
+        }
+        if($(this).closest("section").attr('id') !== undefined)
+        {
+            var section_id = $(this).closest("section").attr('id');
+        }else{
+            var section_id = $(this).closest("footer").attr('id');
+        }
+        
+  		/*var addinfo=$( "#dialog" );
+  		if(!addinfo.dialog( "isOpen" )){ // hacky additional info dialog
+  			addinfo.dialog("open");
+  			return;
+  		}*/
+
+        var originaltext=$('#' + section_id).find('form').find('button').text();
+        $('#' + section_id).find('form').find('button').text('loading...');
+        $('#' + section_id).find('form input').each(
+            function (index) {
+                if ($(this).is('[data-email="required"]')) {
+                    var required_val = $(this).val();
+                    if (required_val != '') {
+                        name_attr.push($(this).attr('name'));
+                        values.push($(this).val());
+                        fs_process = true;
+                    } else {
+                        $('#' + section_id).find('form').find('button').text(originaltext);
+                        $(this).addClass('fs-input-error');
+                        fs_process = false;
+                    }
+                }
+
+                if (!$(this).is('[data-email="required"]')) {
+                    name_attr.push($(this).attr('name'));
+                    values.push($(this).val());
+                }
+
+            });
+        console.log(values);
+        if (fs_process) 
+        {
+            localStorage.setItem('fs-section',section_id);
+            $.post("mail/process.php", {
+                data: { input_name: name_attr,values:values,section_id:section_id},
+                type: "POST",
+            }, function (data) {
+                $('#loading').remove();
+                var fs_form_output = '';
+                if(data) 
+                {
+                    if(data.type == "fs-message") 
+                    {
+                       $('#error-msg').remove(); 
+                       $('#success-msg').remove();
+                       var fs_form_output = '<div id="success-msg" class="padding-15 mt-15 bdrs-3" style="border: 1px solid green; color: green;">'+data.text+'</div>';
+                       $('#' + section_id).find('form').find('button').text('Success');
+                    }else if (data.type == "fs_error") {
+                        $('#' + section_id).find('form').find('button').text(originaltext);
+                        $('#success-msg').remove();
+                        $('#error-msg').remove(); 
+                        var fs_form_output = '<div id="error-msg" class="padding-15 mt-15 bdrs-3" style="border: 1px solid red; color: red;">'+data.text+'</div>';
+                    }else{
+                        var fs_form_output = '';
+                    } 
+                }
+
+                if(fs_form_output != '')
+                {
+                    var section_id = localStorage.getItem('fs-section');
+                    $('#'+section_id).find('form').after(fs_form_output);
+                }
+                $('#' + section_id).find('form input').each(function (index) {
+                    $(this).val('');
+                    $(this).removeClass('fs-input-error');
+                });
+
+                setTimeout(function(){
+                    $('#success-msg').fadeOut();
+                    $('#success-msg').remove();
+                    $('#error-msg').fadeOut();
+                    $('#error-msg').remove();
+                    $(this).submit();
+                    $('#' + section_id).find('form').find('button').text(originaltext);
+                 },5000);
+                localStorage.removeItem('fs_section');
+            }, 'json');
+        }
+        
+        $('#' + section_id).find('form input').each(function (index) {
+            $(this).keypress(function () {
+                $(this).removeClass('fs_input_error');
+            });
+        });
+
+        $('#' + section_id).find('form input').each(function (index) {
+            if ($(this).is(":focus")) {
+                $(this).removeClass('fs_input_error');
+            }
+        });
+
+    });
+
     $('.subs-btn').on('click', function (event) {
         event.preventDefault();
         var name_attr = [];
@@ -130,11 +247,11 @@
         }else{
             var section_id = $(this).closest("footer").attr('id');
         }
+
         var originaltext=$('#' + section_id).find('form').find('button').text();
         $('#' + section_id).find('form').find('button').text('loading...');
         $('#' + section_id).find('form input').each(
             function (index) {
-                
                 if ($(this).is('[data-email="required"]')) {
                     var required_val = $(this).val();
                     if (required_val != '') {
@@ -171,7 +288,7 @@
                        $('#error-msg').remove(); 
                        $('#success-msg').remove();
                        var fs_form_output = '<div id="success-msg" class="padding-15 mt-15 bdrs-3" style="border: 1px solid green; color: green;">'+data.text+'</div>';
-                         $('#' + section_id).find('form').find('button').text('Success');
+                       $('#' + section_id).find('form').find('button').text('Success');
                     }else if (data.type == "fs_error") {
                         $('#' + section_id).find('form').find('button').text(originaltext);
                         $('#success-msg').remove();
