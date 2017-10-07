@@ -5,7 +5,7 @@ plugins:
 
 custom:
   client:
-    bucketName: jobgetwebsite
+    bucketName: jobgetwebsite-prod
 
 provider:
   name: aws
