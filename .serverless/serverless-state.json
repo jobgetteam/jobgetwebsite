@@ -10,9 +10,10 @@
       "variableSyntax": "\\${([ ~:a-zA-Z0-9._'\",\\-\\/\\(\\)]+?)}",
       "name": "aws",
       "runtime": "nodejs6.10",
+      "profile": "default",
       "environment": {
-        "DEBUG": true,
-        "MONGODB_ATLAS_CLUSTER_URI": "mongodb://lambdauser:lambdapass@cluster0-shard-00-00-wwwhr.mongodb.net:27017,cluster0-shard-00-01-wwwhr.mongodb.net:27017,cluster0-shard-00-02-wwwhr.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
+        "DEBUG": false,
+        "MONGODB_ATLAS_CLUSTER_URI": "mongodb://lambdauser:lambdauserpass@cluster0-shard-00-00-dmnn9.mongodb.net:27017,cluster0-shard-00-01-dmnn9.mongodb.net:27017,cluster0-shard-00-02-dmnn9.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
       },
       "versionFunctions": true,
       "remoteFunctionData": null,
@@ -122,7 +123,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/jobget/dev/1507398194253-2017-10-07T17:43:14.253Z/jobget.zip"
+                "S3Key": "serverless/jobget/dev/1507412525177-2017-10-07T21:42:05.177Z/jobget.zip"
               },
               "FunctionName": "jobget-dev-createCompany",
               "Handler": "jobget-service/app.createCompany",
@@ -137,8 +138,8 @@
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "DEBUG": true,
-                  "MONGODB_ATLAS_CLUSTER_URI": "mongodb://lambdauser:lambdapass@cluster0-shard-00-00-wwwhr.mongodb.net:27017,cluster0-shard-00-01-wwwhr.mongodb.net:27017,cluster0-shard-00-02-wwwhr.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
+                  "DEBUG": false,
+                  "MONGODB_ATLAS_CLUSTER_URI": "mongodb://lambdauser:lambdauserpass@cluster0-shard-00-00-dmnn9.mongodb.net:27017,cluster0-shard-00-01-dmnn9.mongodb.net:27017,cluster0-shard-00-02-dmnn9.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
                 }
               }
             },
@@ -147,14 +148,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "CreateCompanyLambdaVersionDCkSykzItO13HGZDf77sYLdjwclQ98qIcwS4Ytmy8A": {
+          "CreateCompanyLambdaVersionVoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2R1hZebCZLyU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreateCompanyLambdaFunction"
               },
-              "CodeSha256": "DCkSykzItO13HGZDf77s+YLdjwclQ98qIcwS4Ytmy8A="
+              "CodeSha256": "VoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2/R1hZebCZLyU="
             }
           },
           "CreateSubscriberLambdaFunction": {
@@ -164,7 +165,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/jobget/dev/1507398194253-2017-10-07T17:43:14.253Z/jobget.zip"
+                "S3Key": "serverless/jobget/dev/1507412525177-2017-10-07T21:42:05.177Z/jobget.zip"
               },
               "FunctionName": "jobget-dev-createSubscriber",
               "Handler": "jobget-service/app.createSubscriber",
@@ -179,8 +180,8 @@
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "DEBUG": true,
-                  "MONGODB_ATLAS_CLUSTER_URI": "mongodb://lambdauser:lambdapass@cluster0-shard-00-00-wwwhr.mongodb.net:27017,cluster0-shard-00-01-wwwhr.mongodb.net:27017,cluster0-shard-00-02-wwwhr.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
+                  "DEBUG": false,
+                  "MONGODB_ATLAS_CLUSTER_URI": "mongodb://lambdauser:lambdauserpass@cluster0-shard-00-00-dmnn9.mongodb.net:27017,cluster0-shard-00-01-dmnn9.mongodb.net:27017,cluster0-shard-00-02-dmnn9.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
                 }
               }
             },
@@ -189,14 +190,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "CreateSubscriberLambdaVersionDCkSykzItO13HGZDf77sYLdjwclQ98qIcwS4Ytmy8A": {
+          "CreateSubscriberLambdaVersionVoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2R1hZebCZLyU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreateSubscriberLambdaFunction"
               },
-              "CodeSha256": "DCkSykzItO13HGZDf77s+YLdjwclQ98qIcwS4Ytmy8A="
+              "CodeSha256": "VoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2/R1hZebCZLyU="
             }
           },
           "ApiGatewayRestApi": {
@@ -403,7 +404,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1507398194318": {
+          "ApiGatewayDeployment1507412525232": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -492,13 +493,13 @@
           "CreateCompanyLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreateCompanyLambdaVersionDCkSykzItO13HGZDf77sYLdjwclQ98qIcwS4Ytmy8A"
+              "Ref": "CreateCompanyLambdaVersionVoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2R1hZebCZLyU"
             }
           },
           "CreateSubscriberLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreateSubscriberLambdaVersionDCkSykzItO13HGZDf77sYLdjwclQ98qIcwS4Ytmy8A"
+              "Ref": "CreateSubscriberLambdaVersionVoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2R1hZebCZLyU"
             }
           },
           "ServiceEndpoint": {
@@ -617,7 +618,7 @@
     "artifact": "C:\\Users\\Michael\\Documents\\Dev\\jobgetwebsite\\.serverless\\jobget.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/jobget/dev/1507398194253-2017-10-07T17:43:14.253Z",
+    "artifactDirectoryName": "serverless/jobget/dev/1507412525177-2017-10-07T21:42:05.177Z",
     "artifact": "jobget.zip"
   }
 }

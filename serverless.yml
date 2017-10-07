@@ -10,9 +10,10 @@ custom:
 provider:
   name: aws
   runtime: nodejs6.10
+  profile: prod
   environment:
-    DEBUG: true
-    MONGODB_ATLAS_CLUSTER_URI: mongodb://lambdauser:lambdapass@cluster0-shard-00-00-wwwhr.mongodb.net:27017,cluster0-shard-00-01-wwwhr.mongodb.net:27017,cluster0-shard-00-02-wwwhr.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin
+    DEBUG: false
+    MONGODB_ATLAS_CLUSTER_URI: mongodb://lambdauser:lambdauserpass@cluster0-shard-00-00-dmnn9.mongodb.net:27017,cluster0-shard-00-01-dmnn9.mongodb.net:27017,cluster0-shard-00-02-dmnn9.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin
 
 functions:
   createCompany:
