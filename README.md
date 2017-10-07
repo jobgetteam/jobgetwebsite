@@ -2,6 +2,6 @@
 To deploy:
 
 	npm install
-	serverless configure
+	serverless config credentials --provider aws --key AKIAIOSFODNN7EXAMPLE --secret wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 	serverless deploy
 	serverless client deploy
