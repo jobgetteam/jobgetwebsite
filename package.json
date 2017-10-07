@@ -2,7 +2,12 @@
   "name": "jobgetwebsite",
   "version": "0.0.0",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "mongoose": "^4.12.0",
+    "node-where": "^1.1.0"
+  },
+  "devDependencies": {
+    "serverless": "^1.23.0",
     "serverless-finch": "^1.1.1"
   }
 }

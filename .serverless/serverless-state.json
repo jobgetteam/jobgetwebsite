@@ -122,10 +122,10 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/jobget/dev/1507398194253-2017-10-07T17:43:14.253Z/jobget.zip"
+                "S3Key": "serverless/jobget/dev/1507410257232-2017-10-07T21:04:17.232Z/jobget.zip"
               },
               "FunctionName": "jobget-dev-createCompany",
-              "Handler": "jobget-service/app.createCompany",
+              "Handler": "api/app.createCompany",
               "MemorySize": 1024,
               "Role": {
                 "Fn::GetAtt": [
@@ -147,14 +147,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "CreateCompanyLambdaVersionDCkSykzItO13HGZDf77sYLdjwclQ98qIcwS4Ytmy8A": {
+          "CreateCompanyLambdaVersionbOhoKJdCbePXTi0Rpo1weBy21MBhxWjw2NrNVy0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreateCompanyLambdaFunction"
               },
-              "CodeSha256": "DCkSykzItO13HGZDf77s+YLdjwclQ98qIcwS4Ytmy8A="
+              "CodeSha256": "bOhoKJdCbePXTi0Rpo1weBy21M/B+hxWj/w2NrNVy+0="
             }
           },
           "CreateSubscriberLambdaFunction": {
@@ -164,10 +164,10 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/jobget/dev/1507398194253-2017-10-07T17:43:14.253Z/jobget.zip"
+                "S3Key": "serverless/jobget/dev/1507410257232-2017-10-07T21:04:17.232Z/jobget.zip"
               },
               "FunctionName": "jobget-dev-createSubscriber",
-              "Handler": "jobget-service/app.createSubscriber",
+              "Handler": "api/app.createSubscriber",
               "MemorySize": 1024,
               "Role": {
                 "Fn::GetAtt": [
@@ -189,14 +189,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "CreateSubscriberLambdaVersionDCkSykzItO13HGZDf77sYLdjwclQ98qIcwS4Ytmy8A": {
+          "CreateSubscriberLambdaVersionbOhoKJdCbePXTi0Rpo1weBy21MBhxWjw2NrNVy0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreateSubscriberLambdaFunction"
               },
-              "CodeSha256": "DCkSykzItO13HGZDf77s+YLdjwclQ98qIcwS4Ytmy8A="
+              "CodeSha256": "bOhoKJdCbePXTi0Rpo1weBy21M/B+hxWj/w2NrNVy+0="
             }
           },
           "ApiGatewayRestApi": {
@@ -403,7 +403,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1507398194318": {
+          "ApiGatewayDeployment1507410257284": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -492,13 +492,13 @@
           "CreateCompanyLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreateCompanyLambdaVersionDCkSykzItO13HGZDf77sYLdjwclQ98qIcwS4Ytmy8A"
+              "Ref": "CreateCompanyLambdaVersionbOhoKJdCbePXTi0Rpo1weBy21MBhxWjw2NrNVy0"
             }
           },
           "CreateSubscriberLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreateSubscriberLambdaVersionDCkSykzItO13HGZDf77sYLdjwclQ98qIcwS4Ytmy8A"
+              "Ref": "CreateSubscriberLambdaVersionbOhoKJdCbePXTi0Rpo1weBy21MBhxWjw2NrNVy0"
             }
           },
           "ServiceEndpoint": {
@@ -546,7 +546,7 @@
     ],
     "functions": {
       "createCompany": {
-        "handler": "jobget-service/app.createCompany",
+        "handler": "api/app.createCompany",
         "events": [
           {
             "http": {
@@ -580,7 +580,7 @@
         "vpc": {}
       },
       "createSubscriber": {
-        "handler": "jobget-service/app.createSubscriber",
+        "handler": "api/app.createSubscriber",
         "events": [
           {
             "http": {
@@ -617,7 +617,7 @@
     "artifact": "C:\\Users\\Michael\\Documents\\Dev\\jobgetwebsite\\.serverless\\jobget.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/jobget/dev/1507398194253-2017-10-07T17:43:14.253Z",
+    "artifactDirectoryName": "serverless/jobget/dev/1507410257232-2017-10-07T21:04:17.232Z",
     "artifact": "jobget.zip"
   }
 }

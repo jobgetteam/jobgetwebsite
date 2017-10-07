@@ -16,14 +16,14 @@ provider:
 
 functions:
   createCompany:
-    handler: jobget-service/app.createCompany
+    handler: api/app.createCompany
     events:
       - http:
           path: companies
           method: post
           cors: true
   createSubscriber:
-    handler: jobget-service/app.createSubscriber
+    handler: api/app.createSubscriber
     events:
       - http:
           path: subscribers
