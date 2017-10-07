@@ -6,7 +6,7 @@ var Comp = require('./company')
 var Subs = require('./subscriber')
 
 let atlas_connection_uri = null;
-let DEBUG = process.env['DEBUG'];
+let DEBUG = (process.env['DEBUG']==="true");
 
 function initConnection(context,insertObject) {
   context.callbackWaitsForEmptyEventLoop = false;

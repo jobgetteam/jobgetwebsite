@@ -104,7 +104,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/jobget/dev/1507412525177-2017-10-07T21:42:05.177Z/jobget.zip"
+          "S3Key": "serverless/jobget/dev/1507412961382-2017-10-07T21:49:21.382Z/jobget.zip"
         },
         "FunctionName": "jobget-dev-createCompany",
         "Handler": "jobget-service/app.createCompany",
@@ -129,14 +129,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "CreateCompanyLambdaVersionVoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2R1hZebCZLyU": {
+    "CreateCompanyLambdaVersionhbXyvvHafMXoVLQO9WSqe3RRMWRIJde2mlQHW4NSc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateCompanyLambdaFunction"
         },
-        "CodeSha256": "VoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2/R1hZebCZLyU="
+        "CodeSha256": "hbXyv+vHafMXoVLQO9WSqe3RRMWRIJde2mlQHW+4NSc="
       }
     },
     "CreateSubscriberLambdaFunction": {
@@ -146,7 +146,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/jobget/dev/1507412525177-2017-10-07T21:42:05.177Z/jobget.zip"
+          "S3Key": "serverless/jobget/dev/1507412961382-2017-10-07T21:49:21.382Z/jobget.zip"
         },
         "FunctionName": "jobget-dev-createSubscriber",
         "Handler": "jobget-service/app.createSubscriber",
@@ -171,14 +171,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "CreateSubscriberLambdaVersionVoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2R1hZebCZLyU": {
+    "CreateSubscriberLambdaVersionhbXyvvHafMXoVLQO9WSqe3RRMWRIJde2mlQHW4NSc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateSubscriberLambdaFunction"
         },
-        "CodeSha256": "VoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2/R1hZebCZLyU="
+        "CodeSha256": "hbXyv+vHafMXoVLQO9WSqe3RRMWRIJde2mlQHW+4NSc="
       }
     },
     "ApiGatewayRestApi": {
@@ -385,7 +385,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1507412525232": {
+    "ApiGatewayDeployment1507412961436": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -474,13 +474,13 @@
     "CreateCompanyLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateCompanyLambdaVersionVoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2R1hZebCZLyU"
+        "Ref": "CreateCompanyLambdaVersionhbXyvvHafMXoVLQO9WSqe3RRMWRIJde2mlQHW4NSc"
       }
     },
     "CreateSubscriberLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateSubscriberLambdaVersionVoFbIkx5OI6WJdf4V2xHhZJ4gjFsXo2R1hZebCZLyU"
+        "Ref": "CreateSubscriberLambdaVersionhbXyvvHafMXoVLQO9WSqe3RRMWRIJde2mlQHW4NSc"
       }
     },
     "ServiceEndpoint": {
