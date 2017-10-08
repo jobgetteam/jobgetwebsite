@@ -5,11 +5,12 @@ plugins:
 
 custom:
   client:
-    bucketName: jobgetwebsite
+    bucketName: jobgetwebsite-prod
 
 provider:
   name: aws
   runtime: nodejs6.10
+  profile: prod
   environment:
     DEBUG: true
     ONLINE: 1
