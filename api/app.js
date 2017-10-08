@@ -5,7 +5,7 @@ var await = require('asyncawait/await');
 var Promise = require('bluebird')
 var mongoose = require('mongoose')
 mongoose.Promise = Promise;
-var where = Promise.promisifyAll(require('node-where'))
+var where = require('node-where')
 var Comp = require('./model/company.js')
 var Subs = require('./model/subscriber.js')
 const AWS = require('aws-sdk')
@@ -79,7 +79,7 @@ exports.createCompany = (event, context, callback) => {
   if(DEBUG) console.log(atlas_connection_uri);
     var json=getBody(event);
     if(DEBUG) console.log(json)
-  Promise.all([Promise.promisify(initConnection)(context), where.isAsync(json.address)])
+  Promise.all([Promise.promisify(initConnection)(context), Promise.promisify(where.is)(json.address)])
   .then(function (allData) {
     console.log(allData);
     var whereres = allData[1];
