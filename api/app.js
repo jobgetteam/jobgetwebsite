@@ -1,49 +1,46 @@
 'use strict'
 
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
 var Promise = require('bluebird')
-var mongoose = require('mongoose');
-var where = require('node-where');
+var mongoose = require('mongoose')
+mongoose.Promise = Promise;
+var where = Promise.promisifyAll(require('node-where'))
 var Comp = require('./model/company.js')
 var Subs = require('./model/subscriber.js')
-const AWS = require('aws-sdk');
+const AWS = require('aws-sdk')
 
 let atlas_connection_uri = null;
-let DEBUG = (process.env['DEBUG']==="true");
 let ONLINE = process.env['ONLINE'];
+let DEBUG = (process.env['DEBUG']==="true");
 
-function initConnection(context,callback) {
+var initConnection = async (function (context,callback) {
   context.callbackWaitsForEmptyEventLoop = false;
   var uri=process.env['MONGODB_ATLAS_CLUSTER_URI'];
 
   if(DEBUG) console.log(mongoose.connection);
   if (atlas_connection_uri === null) {
-      // const kms = new AWS.KMS();
-      //   kms.decrypt({ CiphertextBlob: new Buffer(uri, 'base64') }, (err, data) => {
-      //       if (err) {
-      //           console.log('Decrypt error:', err);
-      //           return callback(err);
-      //       }
-      //       atlas_connection_uri = data.Plaintext.toString('ascii');
-      //       processEvent(event, context, callback);
-      //   });
-      atlas_connection_uri = uri;
+    if(ONLINE){
+      const kms = new AWS.KMS();
+        atlas_connection_uri = await (kms.decrypt({ CiphertextBlob: new Buffer(uri, 'base64') }).promise()).Plaintext.toString('ascii');
+    }else{
+      atlas_connection_uri=uri;
+    }
   }
+  if(DEBUG) console.log(atlas_connection_uri)
   try {
     if (mongoose.connection.readyState === 0) {
       if (DEBUG) console.log('=> connecting to database');
-      mongoose.connect(atlas_connection_uri, {
+      await (mongoose.connect(atlas_connection_uri, {
         useMongoClient: true
-      }).then(
-      () => callback()
-      );
-    }else{
-        callback();
+      }));
     }
+    callback();
   } catch (err) {
     console.error('an error occurred', err);
     callback(err);
   }
-}
+})
 
 function getBody(event){
   if(ONLINE) return JSON.parse(event.body);
@@ -79,9 +76,11 @@ exports.readCompanies = (event, context, callback) => {
 
 exports.createCompany = (event, context, callback) => {
   if (DEBUG) console.log('Calling MongoDB Atlas from AWS Lambda with event: ' + JSON.stringify(event));
-  Promise.all([Promise.promisify(initConnection)(context), Promise.promisify(where.is)(json.address)])
-  .then(function (allData) {
+  if(DEBUG) console.log(atlas_connection_uri);
     var json=getBody(event);
+    if(DEBUG) console.log(json)
+  Promise.all([Promise.promisify(initConnection)(context), where.isAsync(json.address)])
+  .then(function (allData) {
     console.log(allData);
     var whereres = allData[1];
     Comp.create({

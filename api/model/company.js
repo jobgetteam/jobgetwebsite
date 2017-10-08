@@ -15,6 +15,16 @@ Comp.methods.speak = function () {
 	console.log(name+" "+email+" "+address);
 }
 Comp.statics.search = function(search,callback) {
-		
+    var qry = this.find();
+    if (search.types) {
+        qry.where('type').in(search.types);
+    }
+    if (search.loc) {
+        qry.where('loc').near({
+            center: search.loc,
+            maxDistance: search.distance * 1000
+        });
+    }
+    qry.exec(cb);
 }
 module.exports = mongoose.model('Company', Comp);
