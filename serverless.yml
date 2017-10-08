@@ -10,9 +10,9 @@ custom:
 provider:
   name: aws
   runtime: nodejs6.10
-  profile: prod
+  profile: default
   environment:
-    DEBUG: false
+    DEBUG: true
     ONLINE: 1
     MONGODB_ATLAS_CLUSTER_URI: ${ssm:MONGODB_ATLAS_CLUSTER_URI~true}
 
