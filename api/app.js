@@ -27,7 +27,6 @@ function initConnection(context,callback) {
       //       processEvent(event, context, callback);
       //   });
       atlas_connection_uri = uri;
-    if (DEBUG) console.log('the Atlas connection string is ' + atlas_connection_uri);
   }
   try {
     if (mongoose.connection.readyState === 0) {
