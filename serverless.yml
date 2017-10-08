@@ -12,7 +12,7 @@ provider:
   runtime: nodejs6.10
   profile: prod
   environment:
-    DEBUG: true
+    DEBUG: false
     ONLINE: 1
     MONGODB_ATLAS_CLUSTER_URI: ${ssm:MONGODB_ATLAS_CLUSTER_URI~true}
 
