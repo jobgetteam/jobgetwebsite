@@ -12,8 +12,9 @@ provider:
   runtime: nodejs6.10
   profile: prod
   environment:
-    DEBUG: false
-    MONGODB_ATLAS_CLUSTER_URI: mongodb://lambdauser:lambdauserpass@cluster0-shard-00-00-dmnn9.mongodb.net:27017,cluster0-shard-00-01-dmnn9.mongodb.net:27017,cluster0-shard-00-02-dmnn9.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin
+    DEBUG: true
+    ONLINE: 1
+    MONGODB_ATLAS_CLUSTER_URI: ${ssm:MONGODB_ATLAS_CLUSTER_URI~true}
 
 functions:
   createCompany:
