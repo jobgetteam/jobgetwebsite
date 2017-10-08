@@ -5,15 +5,28 @@ var mongoose = require('mongoose');
 var where = require('node-where');
 var Comp = require('./model/company.js')
 var Subs = require('./model/subscriber.js')
+const AWS = require('aws-sdk');
 
 let atlas_connection_uri = null;
 let DEBUG = (process.env['DEBUG']==="true");
+let ONLINE = process.env['ONLINE'];
 
 function initConnection(context,callback) {
   context.callbackWaitsForEmptyEventLoop = false;
+  var uri=process.env['MONGODB_ATLAS_CLUSTER_URI'];
+
   if(DEBUG) console.log(mongoose.connection);
   if (atlas_connection_uri === null) {
-    atlas_connection_uri = process.env['MONGODB_ATLAS_CLUSTER_URI'];
+      // const kms = new AWS.KMS();
+      //   kms.decrypt({ CiphertextBlob: new Buffer(uri, 'base64') }, (err, data) => {
+      //       if (err) {
+      //           console.log('Decrypt error:', err);
+      //           return callback(err);
+      //       }
+      //       atlas_connection_uri = data.Plaintext.toString('ascii');
+      //       processEvent(event, context, callback);
+      //   });
+      atlas_connection_uri = uri;
     if (DEBUG) console.log('the Atlas connection string is ' + atlas_connection_uri);
   }
   try {
@@ -25,12 +38,17 @@ function initConnection(context,callback) {
       () => callback()
       );
     }else{
-      callback();
+        callback();
     }
   } catch (err) {
     console.error('an error occurred', err);
     callback(err);
   }
+}
+
+function getBody(event){
+  if(ONLINE) return JSON.parse(event.body);
+  else return event.body;
 }
 
 exports.readCompanies = (event, context, callback) => {
@@ -61,10 +79,10 @@ exports.readCompanies = (event, context, callback) => {
 }
 
 exports.createCompany = (event, context, callback) => {
-  var json = event.body;//JSON.parse(event.body);
   if (DEBUG) console.log('Calling MongoDB Atlas from AWS Lambda with event: ' + JSON.stringify(event));
   Promise.all([Promise.promisify(initConnection)(context), Promise.promisify(where.is)(json.address)])
   .then(function (allData) {
+    var json=getBody(event);
     console.log(allData);
     var whereres = allData[1];
     Comp.create({
@@ -104,7 +122,8 @@ exports.createCompany = (event, context, callback) => {
 exports.createSubscriber = (event, context, callback) => {
   if (DEBUG) console.log('Calling MongoDB Atlas from AWS Lambda with event: ' + JSON.stringify(event));
   initConnection(context, function() {
-    var json = JSON.parse(event.body);
+    var json=getBody(event);
+    if(DEBUG) console.log(json);
     Subs.create({
         name: json.name,
         email: json.email,
@@ -113,7 +132,7 @@ exports.createSubscriber = (event, context, callback) => {
       },
       function(err, result) {
         if (err !== null) {
-          if (DEBUG) console.error("an error occurred in createDoc", err);
+          if (DEBUG) console.error("an error occurred in createSubscriber", err);
           callback(null, {
             statusCode: 500,
             headers: {
