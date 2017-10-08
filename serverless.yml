@@ -17,7 +17,7 @@ provider:
 custom:
   output:
     handle: scripts/output.process
-    file: client/dist/apistring.json
+    file: client/dist/js/apistring.json
   client:
     bucketName: jobgetwebsite-${self:provider.profile}
 
