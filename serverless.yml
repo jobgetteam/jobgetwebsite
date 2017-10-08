@@ -2,19 +2,22 @@ service: jobget
 
 plugins:
   - serverless-finch
-
+  - serverless-stack-output
 
 provider:
   name: aws
   runtime: nodejs6.10
-  profile: prod
+  profile: dev
   awsKmsKeyArn: ${ssm:MDB_KEY}
   environment:
-    DEBUG: false
+    DEBUG: true
     ONLINE: 1
     MONGODB_ATLAS_CLUSTER_URI: ${ssm:MDB_ATLAS_URI_ENCRYPTED}
 
 custom:
+  output:
+    handle: scripts/output.process
+    file: client/dist/apistring.json
   client:
     bucketName: jobgetwebsite-${self:provider.profile}
 
