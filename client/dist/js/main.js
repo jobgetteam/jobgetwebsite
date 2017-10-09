@@ -1,5 +1,3 @@
-var fs = require('fs');
-
 /*
 	FlatApp Script
 */
@@ -133,14 +131,14 @@ function loadJSON(file, callback) {
             callback(xobj.responseText);
           }
     };
-    xobj.send(null);  
+    xobj.send();
  }
- 
+ var awslambdagateway;
     
-    loadJSON("data.json", function(response) {
+    loadJSON("js/apistring.json", function(response) {
   
-        var awslambdagateway = JSON.parse(response).ServiceEndpoint;
-        console.log(actual_JSON);
+        awslambdagateway = JSON.parse(response).ServiceEndpoint;
+        console.log(awslambdagateway);
     });
 
     function toObject(names, values) {
