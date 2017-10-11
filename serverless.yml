@@ -10,7 +10,7 @@ provider:
   profile: dev
   awsKmsKeyArn: ${ssm:MDB_KEY}
   environment:
-    DEBUG: "false"
+    DEBUG: "true"
     ONLINE: "true"
     MONGODB_ATLAS_CLUSTER_URI: ${ssm:MDB_ATLAS_URI_ENCRYPTED}
 
