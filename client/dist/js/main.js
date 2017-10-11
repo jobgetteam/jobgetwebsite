@@ -120,62 +120,74 @@
     /*=========================================================================
     Subscribe Form
 =========================================================================*/
-function loadJSON(file, callback) {   
+    function loadJSON(file, callback) {
 
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
-    xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
-    xobj.onreadystatechange = function () {
-          if (xobj.readyState == 4 && xobj.status == "200") {
-            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-            callback(xobj.responseText);
-          }
-    };
-    xobj.send();
- }
- var awslambdagateway;
-    
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', file, true);
+        // Replace 'my_data' with the path to your file
+        xobj.onreadystatechange = function() {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                callback(xobj.responseText);
+            }
+        }
+        ;
+        xobj.send();
+    }
+    var awslambdagateway;
+
     loadJSON("js/apistring.json", function(response) {
-  
+
         awslambdagateway = JSON.parse(response).ServiceEndpoint;
-        console.log(awslambdagateway);
+        //console.log(awslambdagateway);
     });
 
-// This example displays an address form, using the autocomplete feature
-// of the Google Places API to help users fill in the information.
+    // This example displays an address form, using the autocomplete feature
+    // of the Google Places API to help users fill in the information.
 
-// This example requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+    // This example requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
-  // Create the autocomplete object, restricting the search to geographical
-  // location types.
-var autocomplete = new google.maps.places.Autocomplete(
-      /** @type {!HTMLInputElement} */(document.getElementById('auto-address')),
-      {types: ['geocode']});
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
 
-  // When the user selects an address from the dropdown, populate the address
-  // fields in the form.
-  //autocomplete.addListener('place_changed', fillInAddress);
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    //autocomplete.addListener('place_changed', fillInAddress);
 
+    // Bias the autocomplete object to the user's geographical location,
+    // as supplied by the browser's 'navigator.geolocation' object.
+    function geolocate() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy
+                });
+                setAll(circle)
+            }, function(err) {
+                console.log(err)
+                setAll()
+            })
+        }
+    }
 
-// Bias the autocomplete object to the user's geographical location,
-// as supplied by the browser's 'navigator.geolocation' object.
-function geolocate() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var geolocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      var circle = new google.maps.Circle({
-        center: geolocation,
-        radius: position.coords.accuracy
-      });
-      autocomplete.setBounds(circle.getBounds());
-    });
-  }
-}
+    function setAll(circle) {
+        var arr = document.getElementsByClassName('autoaddress')
+        //console.log(arr)
+        for (var i = 0; i < arr.length; i++) {
+            new google.maps.places.Autocomplete(/** @type {!HTMLInputElement} */
+            arr.item(i),{
+                types: ['address']
+            }).setBounds(circle)
+        }
+    }
 
     function toObject(names, values) {
         var result = {};
@@ -183,7 +195,7 @@ function geolocate() {
             result[names[i]] = values[i];
         return result;
     }
-    $('#auto-address').focus(geolocate)
+    $(geolocate)
 
     $('.comp-form').find("fieldset").hide();
     $('.comp-btn').on('click', function(event) {
@@ -308,51 +320,51 @@ function geolocate() {
                     alert(response + '\n' + JSON.stringify(xhr));
                 }
             });
-//             $.post(awslambdagateway + "subscribers", {
-//                 data: {
-//                     input_name: name_attr,
-//                     values: values,
-//                     section_id: section_id
-//                 },
-//                 type: "POST",
-//             }, function(data) {
-//                 $('#loading').remove();
-//                 var fs_form_output = '';
-//                 if (data) {
-//                     if (data.type == "fs-message") {
-//                         $('#error-msg').remove();
-//                         $('#success-msg').remove();
-//                         var fs_form_output = '<div id="success-msg" class="padding-15 mt-15 bdrs-3" style="border: 1px solid green; color: green;">' + data.text + '</div>';
-//                         $('#' + section_id).find('form').find('button').text('Success');
-//                     } else if (data.type == "fs_error") {
-//                         $('#' + section_id).find('form').find('button').text(originaltext);
-//                         $('#success-msg').remove();
-//                         $('#error-msg').remove();
-//                         var fs_form_output = '<div id="error-msg" class="padding-15 mt-15 bdrs-3" style="border: 1px solid red; color: red;">' + data.text + '</div>';
-//                     } else {
-//                         var fs_form_output = '';
-//                     }
-//                 }
+            //             $.post(awslambdagateway + "subscribers", {
+            //                 data: {
+            //                     input_name: name_attr,
+            //                     values: values,
+            //                     section_id: section_id
+            //                 },
+            //                 type: "POST",
+            //             }, function(data) {
+            //                 $('#loading').remove();
+            //                 var fs_form_output = '';
+            //                 if (data) {
+            //                     if (data.type == "fs-message") {
+            //                         $('#error-msg').remove();
+            //                         $('#success-msg').remove();
+            //                         var fs_form_output = '<div id="success-msg" class="padding-15 mt-15 bdrs-3" style="border: 1px solid green; color: green;">' + data.text + '</div>';
+            //                         $('#' + section_id).find('form').find('button').text('Success');
+            //                     } else if (data.type == "fs_error") {
+            //                         $('#' + section_id).find('form').find('button').text(originaltext);
+            //                         $('#success-msg').remove();
+            //                         $('#error-msg').remove();
+            //                         var fs_form_output = '<div id="error-msg" class="padding-15 mt-15 bdrs-3" style="border: 1px solid red; color: red;">' + data.text + '</div>';
+            //                     } else {
+            //                         var fs_form_output = '';
+            //                     }
+            //                 }
 
-//                 if (fs_form_output != '') {
-//                     var section_id = localStorage.getItem('fs-section');
-//                     $('#' + section_id).find('form').after(fs_form_output);
-//                 }
-//                 $('#' + section_id).find('form input').each(function(index) {
-//                     $(this).val('');
-//                     $(this).removeClass('fs-input-error');
-//                 });
+            //                 if (fs_form_output != '') {
+            //                     var section_id = localStorage.getItem('fs-section');
+            //                     $('#' + section_id).find('form').after(fs_form_output);
+            //                 }
+            //                 $('#' + section_id).find('form input').each(function(index) {
+            //                     $(this).val('');
+            //                     $(this).removeClass('fs-input-error');
+            //                 });
 
-//                 setTimeout(function() {
-//                     $('#success-msg').fadeOut();
-//                     $('#success-msg').remove();
-//                     $('#error-msg').fadeOut();
-//                     $('#error-msg').remove();
-//                     $(this).submit();
-//                     $('#' + section_id).find('form').find('button').text(originaltext);
-//                 }, 5000);
-//                 localStorage.removeItem('fs_section');
-//             }, 'json');
+            //                 setTimeout(function() {
+            //                     $('#success-msg').fadeOut();
+            //                     $('#success-msg').remove();
+            //                     $('#error-msg').fadeOut();
+            //                     $('#error-msg').remove();
+            //                     $(this).submit();
+            //                     $('#' + section_id).find('form').find('button').text(originaltext);
+            //                 }, 5000);
+            //                 localStorage.removeItem('fs_section');
+            //             }, 'json');
         }
 
         $('#' + section_id).find('form input').each(function(index) {
