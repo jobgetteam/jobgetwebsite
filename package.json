@@ -9,7 +9,7 @@
     "nodemailer": "^4.1.3"
   },
   "devDependencies": {
-    "aws-sdk": "^2.130.0", //This is present on AWS, no need to deploy
+    "aws-sdk": "^2.130.0",
     "serverless": "^1.23.0",
     "serverless-finch": "^1.1.1",
     "serverless-stack-output": "^0.2.0"
