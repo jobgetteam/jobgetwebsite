@@ -15,12 +15,15 @@ provider:
     MONGODB_ATLAS_CLUSTER_URI: ${ssm:MDB_ATLAS_URI_ENCRYPTED}
 
 custom:
+  bucketNames: 
+    dev: jobgetwebsite-dev
+    prod: jobget.com
   defaultStage: dev
   output:
     handle: scripts/output.process
     file: client/dist/js/apistring.json
   client:
-    bucketName: jobget.com
+    bucketName: ${self:custom.bucketNames.${self:provider.stage}}
 
 functions:
   createCompany:

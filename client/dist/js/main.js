@@ -166,11 +166,11 @@
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
-                circle = new google.maps.Circle({
+                var circle = new google.maps.Circle({
                     center: geolocation,
                     radius: position.coords.accuracy
                 });
-                setAll(circle)
+                setAll(circle.getBounds())
             }, function(err) {
                 console.log(err)
                 setAll()
