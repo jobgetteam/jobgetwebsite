@@ -1,18 +1,20 @@
 'use strict'
 
-var async = require('asyncawait/async');
-var await = require('asyncawait/await');
-var Promise = require('bluebird')
-var mongoose = require('mongoose')
+const async = require('asyncawait/async');
+const await = require('asyncawait/await');
+const Promise = require('bluebird')
+const mongoose = require('mongoose')
 mongoose.Promise = Promise;
-var where = require('node-where')
-var Comp = require('./model/company.js')
-var Subs = require('./model/subscriber.js')
+const where = require('node-where')
+const Comp = require('./model/company.js')
+const Subs = require('./model/subscriber.js')
 const AWS = require('aws-sdk')
+const mailer = require('./mailer.js')
+const lambda = new AWS.Lambda();
 
 let atlas_connection_uri = null;
 let ONLINE = process.env['ONLINE'];
-let DEBUG = (process.env['DEBUG']==="true");
+let DEBUG = (process.env['DEBUG']==="true") || (ONLINE===undefined);
 
 var initConnection = async (function (context,callback) {
   context.callbackWaitsForEmptyEventLoop = false;
@@ -78,7 +80,7 @@ exports.createCompany = (event, context, callback) => {
   if (DEBUG) console.log('Calling MongoDB Atlas from AWS Lambda with event: ' + JSON.stringify(event));
   if(DEBUG) console.log(atlas_connection_uri);
     var json=getBody(event);
-    if(DEBUG) console.log(json)
+    if(DEBUG) console.log(event)
   Promise.all([Promise.promisify(initConnection)(context), Promise.promisify(where.is)(json.address)])
   .then(function (allData) {
     console.log(allData);
@@ -118,17 +120,18 @@ exports.createCompany = (event, context, callback) => {
 }
 
 exports.createSubscriber = (event, context, callback) => {
-  if (DEBUG) console.log('Calling MongoDB Atlas from AWS Lambda with event: ' + JSON.stringify(event));
+  if (DEBUG) console.log('Calling MongoDB Atlas from AWS Lambda with event: ',event);
   initConnection(context, function() {
-    var json=getBody(event);
-    if(DEBUG) console.log(json);
+    var json =getBody(event);
+    var queryStringParameters = event["queryStringParameters"]
+    if(DEBUG) console.log(event);
     Subs.create({
         name: json.name,
         email: json.email,
         address: json.address,
         password: ""
       },
-      function(err, result) {
+      async (function(err, result) {
         if (err !== null) {
           if (DEBUG) console.error("an error occurred in createSubscriber", err);
           callback(null, {
@@ -139,16 +142,24 @@ exports.createSubscriber = (event, context, callback) => {
             body: JSON.stringify(err)
           });
         } else {
-          console.log(result);
+          if(queryStringParameters && queryStringParameters["sendWelcomeEmail"]){
+            if(DEBUG) console.log("WELCOME "+result.email)
+            // lambda.invoke({
+            //   FunctionName: 'sendWelcomeEmail',
+            //   Payload: JSON.stringify(result,null,2),
+            //   InvocationType: 'event'
+            // });
+          }
+          if(DEBUG) console.log(result)
           callback(null, {
-            statusCode: 201,
+            statusCode: 200,
             headers: {
               "Access-Control-Allow-Origin": "*" // Required for CORS support to work
             },
             body: JSON.stringify(result)
           });
         }
-      }
+      })
     );
   });
 }

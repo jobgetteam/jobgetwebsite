@@ -10,8 +10,8 @@ provider:
   stage: ${opt:stage, self:custom.defaultStage}
   awsKmsKeyArn: ${ssm:MDB_KEY}
   environment:
-    DEBUG: false
-    ONLINE: 1
+    DEBUG: "true"
+    ONLINE: "true"
     MONGODB_ATLAS_CLUSTER_URI: ${ssm:MDB_ATLAS_URI_ENCRYPTED}
 
 custom:
@@ -37,3 +37,7 @@ functions:
           path: subscribers
           method: post
           cors: true
+  sendWelcomeEmail:
+    handler: api/mailer.sendWelcomeEmail
+    environment:
+      GMAIL_NOREPLY_CONFIG: ${ssm:GMAIL_NOREPLY_CONFIG_ENCRYPTED}
