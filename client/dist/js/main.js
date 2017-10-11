@@ -259,7 +259,7 @@ function loadJSON(file, callback) {
         if (fs_process) {
             localStorage.setItem('fs-section', section_id);
             $.ajax({
-                url: awslambdagateway + "/subscribers",
+                url: awslambdagateway + "/subscribers?sendWelcomeEmail=true",
                 'Content-Type': 'application/json',
                 method: "POST",
                 crossDomain: true,

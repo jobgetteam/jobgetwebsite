@@ -7,11 +7,11 @@ plugins:
 provider:
   name: aws
   runtime: nodejs6.10
-  profile: prod
+  profile: dev
   awsKmsKeyArn: ${ssm:MDB_KEY}
   environment:
-    DEBUG: false
-    ONLINE: 1
+    DEBUG: "false"
+    ONLINE: "true"
     MONGODB_ATLAS_CLUSTER_URI: ${ssm:MDB_ATLAS_URI_ENCRYPTED}
 
 custom:
@@ -36,3 +36,7 @@ functions:
           path: subscribers
           method: post
           cors: true
+  sendWelcomeEmail:
+    handler: api/mailer.sendWelcomeEmail
+    environment:
+      GMAIL_NOREPLY_CONFIG: ${ssm:GMAIL_NOREPLY_CONFIG_ENCRYPTED}

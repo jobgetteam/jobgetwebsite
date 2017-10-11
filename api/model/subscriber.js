@@ -1,6 +1,7 @@
+const mongoose = require('mongoose');  
+const Schema = mongoose.Schema;
 
-var mongoose = require('mongoose');  
-var SubsSchema = new mongoose.Schema({  
+const SubsSchema = new Schema({  
   name: String,
   email: String,
   address: String,

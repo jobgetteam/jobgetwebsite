@@ -1,7 +1,10 @@
 {
    "body" : {
       "name" : "heh",
-      "email" : "kek",
+      "email" : "ninifeyo@taphear.com",
       "address" : "awa"
+   },
+   "queryStringParameters" : {
+   	"sendWelcomeEmail": true
    }
 }

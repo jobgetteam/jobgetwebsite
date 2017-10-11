@@ -10,7 +10,7 @@ var Comp = new mongoose.Schema({
   },
   password: String
 });
-Comp.index({location: '2dsphere'})
+//Comp.index({location: '2dsphere'})
 Comp.methods.speak = function () {
 	console.log(name+" "+email+" "+address);
 }
