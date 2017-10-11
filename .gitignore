@@ -1,0 +1,4 @@
+.serverless
+node_modules
+package-lock.json
+client/dist/js/apistring.json

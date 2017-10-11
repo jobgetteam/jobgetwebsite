@@ -7,7 +7,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs6.10
-  profile: dev
+  stage: ${opt:stage, self:custom.defaultStage}
   awsKmsKeyArn: ${ssm:MDB_KEY}
   environment:
     DEBUG: "true"
@@ -15,11 +15,12 @@ provider:
     MONGODB_ATLAS_CLUSTER_URI: ${ssm:MDB_ATLAS_URI_ENCRYPTED}
 
 custom:
+  defaultStage: dev
   output:
     handle: scripts/output.process
     file: client/dist/js/apistring.json
   client:
-    bucketName: jobgetwebsite-${self:provider.profile}
+    bucketName: jobget.com
 
 functions:
   createCompany:
